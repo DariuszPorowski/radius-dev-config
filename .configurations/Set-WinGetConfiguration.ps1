@@ -19,7 +19,7 @@ Set-WinGetConfiguration.ps1 -YamlConfigFilePath ".\radius.dsc.yaml"
 param (
     [string]$YamlConfigFilePath = "$PSScriptRoot\radius.dsc.yaml",
 
-    [bool]$validateFirst = $false
+    [bool]$ValidateFirst = $false
 )
 
 Set-StrictMode -Version 3.0
@@ -32,12 +32,12 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 
 winget configure --enable
 
-if ($validateFirst) {
-    Write-Host "Validating WinGet configuration..."
+if ($ValidateFirst) {
+    Write-Output "Validating WinGet configuration..."
     winget configure validate --file $YamlConfigFilePath --disable-interactivity
 }
 
-Write-Host "Starting WinGet configuration from $YamlConfigFilePath..."
+Write-Output "Starting WinGet configuration from $YamlConfigFilePath..."
 winget configure --file $YamlConfigFilePath --accept-configuration-agreements --disable-interactivity
 
-Write-Host "WinGet configuration complete. A reboot is required to finish setting up WSL and Docker Desktop."
+Write-Output "WinGet configuration complete. A reboot may be required to finish setting up WSL and Docker Desktop."

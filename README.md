@@ -44,31 +44,30 @@ Windows 11 with:
 ## Installation Step-By-Step
 
 1. Provision a new virtual machine with Windows 11.
-1. Open Windows Terminal as administrator and run `.\.configurations\Set-WingetConfiguration`
+1. Open Windows Terminal as administrator and run `.\.configurations\Set-WinGetConfiguration.ps1`
 1. Reboot (Required for WSL and Docker Desktop)
 
 ## How to Develop
 
 1. Open a terminal window and launch the Ubuntu WSL distro.
-2. Clone the [Radius repo](https://github.com/radius-project/radius) to a folder (on Ubuntu). Be sure to include submodules.
+1. Clone the [Radius repo](https://github.com/radius-project/radius) to a folder (on Ubuntu). Be sure to include submodules.
 
-```bash
-git clone https://github.com/radius-project/radius --recurse-submodules`
+    ```bash
+    git clone https://github.com/dariuszporowski/radius.git --recurse-submodules
+    ```
 
-```
+1. `cd` to the repo and launch VS Code
 
-3. `cd` to the repo and launch VS Code
+    ```bash
+    cd radius
+    code .
+    ```
 
-```bash
-cd radius
-code .
-```
+1. Launch the dev container. VS Code may prompt you to launch the dev container, or open the VS Code command palette and run the command to launch the dev container.
 
-4. Launch the dev container. VS Code may prompt you to launch the dev container, or open the VS Code command palette and run the command to launch the dev container.
-
-```text
-Dev Containers: Rebuild and Reopen in Container
-```
+    ```text
+    Dev Containers: Rebuild and Reopen in Container
+    ```
 
 The first dev container build will take some time.
 
@@ -79,11 +78,13 @@ This repository includes GitHub Actions workflows that automatically build and p
 ### Weekly Radius Dev Container Build
 
 A GitHub workflow (`build-radius-devcontainer.yml`) runs weekly to:
+
 - Build the latest Radius dev container from the [radius-project/radius](https://github.com/radius-project/radius) repository
 - Publish the container image to GitHub Container Registry (ghcr.io)
 - Make the latest Radius development environment available as a pre-built container
 
 The workflow runs every Sunday at 2 AM UTC and can also be triggered manually. Built containers are available at:
+
 - `ghcr.io/[owner]/radius-dev:latest`
 - `ghcr.io/[owner]/radius-dev:[run_number]`
 - `ghcr.io/[owner]/radius-dev:weekly-[run_number]`
