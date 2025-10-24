@@ -1,0 +1,62 @@
+#cloud-config
+# yaml-language-server: $schema=https://github.com/canonical/cloud-init/raw/main/cloudinit/config/schemas/schema-cloud-config-v1.json
+
+locale: en_US.UTF-8
+
+users:
+  - name: __USERNAME__
+    gecos: __USERNAME__
+    groups: users,sudo,netdev,audio
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+
+disable_root: true
+
+write_files:
+  - path: /etc/wsl.conf
+    append: true
+    content: |
+      [user]
+      default=__USERNAME__
+
+      [network]
+      hostname=__HOSTNAME__
+      generateHosts=false
+
+      [interop]
+      enabled=true
+      appendWindowsPath=false
+
+# update apt database
+package_update: true
+# upgrade the system
+package_upgrade: true
+# reboot after package install if necessary
+package_reboot_if_required: true
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - wget
+  - gpg
+  - gnupg2
+  - wslu
+  - dos2unix
+  - software-properties-common
+  - apache2-utils
+  - git
+  - jq
+  - make
+  - build-essential
+  - unzip
+  - zip
+  - dnsutils
+  - direnv
+  - mc
+  - zsh
+
+runcmd:
+  - hostnamectl set-hostname __HOSTNAME__
+
+final_message: "cloud-init done"
