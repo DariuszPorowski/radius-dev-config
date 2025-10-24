@@ -2,6 +2,12 @@
 properties:
   configurationVersion: 0.2.0
   resources:
+    - resource: Microsoft.Windows.Developer/DeveloperMode
+      directives:
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: windows-terminal
       directives:
@@ -225,6 +231,15 @@ properties:
         allowPrerelease: true
       settings:
         id: JanDeDobbeleer.Aliae
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: direnv
+      directives:
+        description: DirEnv
+        allowPrerelease: true
+      settings:
+        id: direnv.direnv
         source: winget
 
     # - resource: Microsoft.WinGet.DSC/WinGetPackage
