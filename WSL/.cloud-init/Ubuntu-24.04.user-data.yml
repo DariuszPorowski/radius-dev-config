@@ -14,8 +14,12 @@ disable_root: true
 
 write_files:
   - path: /etc/wsl.conf
-    append: true
+    # append: true
     content: |
+      [boot]
+      systemd=true
+      command="/mnt/c/Users/__USERNAME__/.wsl/startup.sh"
+
       [user]
       default=__USERNAME__
 
@@ -26,6 +30,10 @@ write_files:
       [interop]
       enabled=true
       appendWindowsPath=false
+
+      [automount]
+      enabled=true
+      mountFsTab=true
 
 # update apt database
 package_update: true

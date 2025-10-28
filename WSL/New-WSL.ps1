@@ -39,6 +39,7 @@ param(
 )
 
 # Set strict error handling
+Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 #region Path Configuration
@@ -117,7 +118,7 @@ Write-Verbose "Preparing cloud-init configuration..."
 # __USERNAME__: Windows username, used to create matching user in WSL
 # __HOSTNAME__: Instance name, used as the hostname in WSL
 try {
-    $cloudInitConfig = Get-Content $cloudInitConfigTmpl -ErrorAction Stop
+    $cloudInitConfig = Get-Content $cloudInitConfigTmpl
     $cloudInitConfig = $cloudInitConfig | ForEach-Object { $_ -replace '__USERNAME__', $Username }
     $cloudInitConfig = $cloudInitConfig | ForEach-Object { $_ -replace '__HOSTNAME__', $Name }
 }
