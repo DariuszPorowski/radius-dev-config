@@ -1,5 +1,3 @@
-#Requires -RunAsAdministrator
-
 <#
 .SYNOPSIS
 Validates and applies the yaml winget configuration to a Windows machine.
@@ -16,14 +14,17 @@ File path to the yaml configuration file to be applied by winget.
 .EXAMPLE
 Set-WinGetConfiguration.ps1 -YamlConfigFilePath ".\radius.dsc.yaml"
 #>
+
+#Requires -RunAsAdministrator
+
 param (
     [string]$YamlConfigFilePath = "$PSScriptRoot\radius.dsc.yaml",
 
     [bool]$ValidateFirst = $false
 )
 
-Set-StrictMode -Version 3.0
-$ErrorActionPreference = 'Stop'
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
 
 # Check for WinGet
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
@@ -33,11 +34,11 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 winget configure --enable
 
 if ($ValidateFirst) {
-    Write-Output "Validating WinGet configuration..."
+    Write-Host "Validating WinGet configuration..."
     winget configure validate --file $YamlConfigFilePath --disable-interactivity
 }
 
-Write-Output "Starting WinGet configuration from $YamlConfigFilePath..."
+Write-Host "Starting WinGet configuration from $YamlConfigFilePath..."
 winget configure --file $YamlConfigFilePath --accept-configuration-agreements --disable-interactivity
 
-Write-Output "WinGet configuration complete. A reboot may be required to finish setting up WSL and Docker Desktop."
+Write-Host "WinGet configuration complete. A reboot may be required to finish setting up WSL and Docker Desktop."

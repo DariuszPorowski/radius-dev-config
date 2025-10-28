@@ -1,4 +1,19 @@
 # yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+---
+resources:
+  - name: Virtualization features
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
+        - name: Containers
+          type: PSDesiredStateConfiguration/WindowsOptionalFeature
+          properties:
+            Name: containers
+        - name: Microsoft-Hyper-V
+          type: PSDesiredStateConfiguration/WindowsOptionalFeature
+          properties:
+            Name: Microsoft-Hyper-V
+
 properties:
   configurationVersion: 0.2.0
   resources:

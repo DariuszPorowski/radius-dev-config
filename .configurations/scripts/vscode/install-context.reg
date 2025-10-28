@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+; Add "Open with Code" for folders
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]
+@="Open with Code"
+"Icon"="\"C:\\Program Files\\Microsoft VS Code\\Code.exe\""
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]
+@="\"C:\\Program Files\\Microsoft VS Code\\Code.exe\" \"%V\""
+
+; Add "Open with Code" for files
+[HKEY_CLASSES_ROOT\*\shell\VSCode]
+@="Open with Code"
+"Icon"="\"C:\\Program Files\\Microsoft VS Code\\Code.exe\""
+
+[HKEY_CLASSES_ROOT\*\shell\VSCode\command]
+@="\"C:\\Program Files\\Microsoft VS Code\\Code.exe\" \"%1\""
