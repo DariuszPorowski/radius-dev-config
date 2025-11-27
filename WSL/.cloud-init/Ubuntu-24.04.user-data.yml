@@ -25,7 +25,7 @@ write_files:
 
       [network]
       hostname = __HOSTNAME__
-      generateHosts = false
+      # generateHosts = false
       # generateResolvConf = false
 
       [interop]
@@ -35,18 +35,6 @@ write_files:
       [automount]
       enabled = true
       mountFsTab = true
-
-  - path: /etc/hosts
-    content: |
-      127.0.0.1       localhost
-      127.0.1.1       __HOSTNAME__.localdomain     __HOSTNAME__
-
-      # The following lines are desirable for IPv6 capable hosts
-      ::1     ip6-localhost ip6-loopback
-      fe00::0 ip6-localnet
-      ff00::0 ip6-mcastprefix
-      ff02::1 ip6-allnodes
-      ff02::2 ip6-allrouters
 
 apt:
   sources:
@@ -69,7 +57,6 @@ packages:
   - wget
   - gpg
   - gnupg2
-  - wslu
   - dos2unix
   - software-properties-common
   - apache2-utils
@@ -85,8 +72,31 @@ packages:
   - zsh
   - age
   - golang-go
+  - ntp
 
 runcmd:
-  - hostnamectl set-hostname __HOSTNAME__
+  - |
+    # Set the hostname
+
+    hostnamectl set-hostname __HOSTNAME__
+  - |
+    # Update /etc/hosts with the new hostname
+
+    NEW_HOSTNAME=$(hostname)
+    HOSTS_FILE="/etc/hosts"
+
+    if grep -q "^127.0.1.1" "$HOSTS_FILE"; then
+        sudo sed -i "s/^127.0.1.1.*/127.0.1.1\t${NEW_HOSTNAME}.localdomain\t${NEW_HOSTNAME}/" "$HOSTS_FILE"
+    else
+        echo -e "127.0.1.1\t${NEW_HOSTNAME}.localdomain\t${NEW_HOSTNAME}" | sudo tee -a "$HOSTS_FILE"
+    fi
+  - |
+    # Install PowerShell
+
+    wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    dpkg -i packages-microsoft-prod.deb
+    rm packages-microsoft-prod.deb
+    sudo apt-get -y update
+    sudo apt-get -y install powershell
 
 final_message: cloud-init done
