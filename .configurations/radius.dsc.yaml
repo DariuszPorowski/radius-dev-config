@@ -241,6 +241,15 @@ properties:
     # DX
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: age
+      directives:
+        description: AGE
+        allowPrerelease: true
+      settings:
+        id: FiloSottile.age
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: chezmoi
       directives:
         description: ChezMoi

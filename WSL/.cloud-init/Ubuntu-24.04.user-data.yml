@@ -48,6 +48,11 @@ write_files:
       ff02::1 ip6-allnodes
       ff02::2 ip6-allrouters
 
+apt:
+  sources:
+    git-core:
+      source: ppa:git-core/ppa
+
 # update apt database
 package_update: true
 # upgrade the system
@@ -76,8 +81,10 @@ packages:
   - direnv
   - mc
   - zsh
+  - age
+  - git
 
 runcmd:
   - hostnamectl set-hostname __HOSTNAME__
 
-final_message: "cloud-init done"
+final_message: cloud-init done
