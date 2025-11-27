@@ -1,6 +1,6 @@
 #cloud-config
-# yaml-language-server: $schema=https://github.com/canonical/cloud-init/raw/main/cloudinit/config/schemas/schema-cloud-config-v1.json
-
+# yaml-language-server: $schema=https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/schema-cloud-config-v1.json
+---
 locale: en_US.UTF-8
 
 users:
@@ -17,23 +17,36 @@ write_files:
     # append: true
     content: |
       [boot]
-      systemd=true
-      command="/mnt/c/Users/__USERNAME__/.wsl/startup.sh"
+      systemd = true
+      command = "/mnt/c/Users/__USERNAME__/.wsl/startup.sh"
 
       [user]
-      default=__USERNAME__
+      default = __USERNAME__
 
       [network]
-      hostname=__HOSTNAME__
-      generateHosts=false
+      hostname = __HOSTNAME__
+      generateHosts = false
+      # generateResolvConf = false
 
       [interop]
-      enabled=true
-      appendWindowsPath=false
+      enabled = true
+      appendWindowsPath = false
 
       [automount]
-      enabled=true
-      mountFsTab=true
+      enabled = true
+      mountFsTab = true
+
+  - path: /etc/hosts
+    content: |
+      127.0.0.1       localhost
+      127.0.1.1       __HOSTNAME__.localdomain     __HOSTNAME__
+
+      # The following lines are desirable for IPv6 capable hosts
+      ::1     ip6-localhost ip6-loopback
+      fe00::0 ip6-localnet
+      ff00::0 ip6-mcastprefix
+      ff02::1 ip6-allnodes
+      ff02::2 ip6-allrouters
 
 # update apt database
 package_update: true
