@@ -52,6 +52,8 @@ apt:
   sources:
     git-core:
       source: ppa:git-core/ppa
+    golang:
+      source: ppa:longsleep/golang-backports
 
 # update apt database
 package_update: true
@@ -83,6 +85,7 @@ packages:
   - zsh
   - age
   - git
+  - golang-go
 
 runcmd:
   - hostnamectl set-hostname __HOSTNAME__
