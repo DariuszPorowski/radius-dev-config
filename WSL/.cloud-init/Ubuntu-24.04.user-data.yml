@@ -84,7 +84,6 @@ packages:
   - mc
   - zsh
   - age
-  - git
   - golang-go
 
 runcmd:
