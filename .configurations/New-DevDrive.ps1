@@ -84,7 +84,7 @@ function Write-ProgressMessage {
         [Parameter(Mandatory = $true)]
         [string]$Message
     )
-    
+
     Write-Verbose $Message
     Write-Host "  $Message" -ForegroundColor Cyan
 }
@@ -128,8 +128,8 @@ try {
             $init = $disk | Initialize-Disk -PartitionStyle GPT -PassThru
 
             Write-ProgressMessage "Creating partition..."
-            $partitionParams = @{ 
-                UseMaximumSize = $true 
+            $partitionParams = @{
+                UseMaximumSize = $true
             }
 
             if ([string]::IsNullOrWhiteSpace($DriveLetter)) {
@@ -146,7 +146,7 @@ try {
 
             Write-ProgressMessage "Formatting as Dev Drive (ReFS)..."
             $volume = $part | Format-Volume -DevDrive -FileSystem ReFS -NewFileSystemLabel 'DevDrive' -Confirm:$false -Force
-            
+
             Write-Host "`n  SUCCESS: Dev Drive created and ready!" -ForegroundColor Green
             Write-Host "  Drive Letter: $($volume.DriveLetter):" -ForegroundColor Yellow
             Write-Host "  File System: $($volume.FileSystem)" -ForegroundColor Yellow
@@ -156,7 +156,7 @@ try {
     else {
         # Scenario 2 or 3: VHDX file exists
         Write-ProgressMessage "Existing VHDX found at: $ResolvedPath"
-        
+
         Write-Verbose "Checking if VHDX is already mounted..."
         $existingVhd = Get-VHD -Path $ResolvedPath
 
@@ -171,13 +171,13 @@ try {
 
         # Scenario 2: Exists but not mounted - mount it
         Write-ProgressMessage "VHDX is not mounted. Mounting now..."
-        
+
         if ($PSCmdlet.ShouldProcess($ResolvedPath, "Mount existing VHDX")) {
             $disk = $existingVhd | Mount-VHD -Passthru
             Write-Verbose "VHDX mounted successfully as Disk Number: $($disk.Number)"
-            
+
             # Get volume information
-            $volumes = Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue | 
+            $volumes = Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue |
             Get-Volume -ErrorAction SilentlyContinue |
             Where-Object { $null -ne $_.DriveLetter }
 
@@ -196,7 +196,7 @@ catch {
     Write-Host "`n  ERROR: Failed to create or mount Dev Drive" -ForegroundColor Red
     Write-Host "  Details: $($_.Exception.Message)" -ForegroundColor Red
     Write-Verbose "Full error: $($_ | Out-String)"
-    
+
     # Attempt cleanup on failure for new VHDs
     if ($isNewVhd -and (Test-Path -Path $ResolvedPath -ErrorAction SilentlyContinue)) {
         Write-Warning "Attempting to clean up partially created VHDX..."
@@ -209,7 +209,7 @@ catch {
             Write-Warning "Could not clean up VHDX file. You may need to manually remove: $ResolvedPath"
         }
     }
-    
+
     throw
 }
 finally {

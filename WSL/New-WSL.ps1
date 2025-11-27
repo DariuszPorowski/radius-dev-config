@@ -29,11 +29,11 @@
 #>
 
 param(
-    [Parameter(Mandatory = $true)] 
+    [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
     [string]$Name,
 
-    [Parameter(Mandatory = $false)] 
+    [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
     [string]$Username = $env:USERNAME
 )
@@ -79,25 +79,25 @@ catch {
 #region Directory Setup
 # Create user's cloud-init directory if it doesn't exist
 # This directory stores cloud-init configuration files
-if (-not (Test-Path '~\.cloud-init')) { 
+if (-not (Test-Path '~\.cloud-init')) {
     Write-Verbose "Creating cloud-init directory at ~\.cloud-init"
-    New-Item -ItemType Directory -Path '~\.cloud-init' | Out-Null 
+    New-Item -ItemType Directory -Path '~\.cloud-init' | Out-Null
 }
 
 # Create images cache directory if it doesn't exist
 # This directory stores downloaded WSL images for reuse
-if (-not (Test-Path $imagesPath)) { 
+if (-not (Test-Path $imagesPath)) {
     Write-Verbose "Creating images cache directory at $imagesPath"
-    New-Item -ItemType Directory -Path $imagesPath | Out-Null 
+    New-Item -ItemType Directory -Path $imagesPath | Out-Null
 }
 #endregion
 
 #region Image Download
 # Download Ubuntu WSL image if not already cached
-if (-not (Test-Path $imageFile)) { 
+if (-not (Test-Path $imageFile)) {
     Write-Host "Downloading Ubuntu 24.04 WSL image from $downloadUrl..." -ForegroundColor Cyan
     Write-Host "This may take several minutes depending on your connection speed." -ForegroundColor Yellow
-    
+
     try {
         Invoke-WebRequest -Uri $downloadUrl -OutFile $imageFile -UseBasicParsing
         Write-Host "Download completed successfully." -ForegroundColor Green
@@ -160,11 +160,11 @@ try {
     # --version 2: Uses WSL2 (required for better performance and features)
     # --no-launch: Prevents automatic launch after installation (we'll launch it manually)
     wsl --install --from-file "$imageFile" --name "$Name" --location "$installPath" --version 2 --no-launch
-    
+
     if ($LASTEXITCODE -ne 0) {
         throw "WSL installation failed with exit code: $LASTEXITCODE"
     }
-    
+
     Write-Host "Instance installed successfully." -ForegroundColor Green
 }
 catch {

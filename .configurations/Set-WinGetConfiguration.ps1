@@ -24,21 +24,21 @@ param (
 )
 
 Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
 
 # Check for WinGet
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-    Write-Error "WinGet is not installed."
+    Write-Error 'WinGet is not installed.'
 }
 
 winget configure --enable
 
 if ($ValidateFirst) {
-    Write-Host "Validating WinGet configuration..."
+    Write-Host 'Validating WinGet configuration...'
     winget configure validate --file $YamlConfigFilePath --disable-interactivity
 }
 
 Write-Host "Starting WinGet configuration from $YamlConfigFilePath..."
 winget configure --file $YamlConfigFilePath --accept-configuration-agreements --disable-interactivity
 
-Write-Host "WinGet configuration complete. A reboot may be required to finish setting up WSL and Docker Desktop."
+Write-Host 'WinGet configuration complete. A reboot may be required to finish setting up WSL and Docker Desktop.'
