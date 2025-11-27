@@ -177,6 +177,15 @@ properties:
         source: winget
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: lens
+      directives:
+        description: Lens
+        allowPrerelease: true
+      settings:
+        id: Mirantis.Lens
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: dapr
       directives:
         description: Dapr
