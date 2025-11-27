@@ -50,14 +50,14 @@ properties:
         id: Microsoft.WSL
         source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: ubuntu
-      directives:
-        description: Ubuntu
-        allowPrerelease: true
-      settings:
-        id: Canonical.Ubuntu.2404
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   id: ubuntu
+    #   directives:
+    #     description: Ubuntu
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Canonical.Ubuntu.2404
+    #     source: winget
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: git
@@ -77,23 +77,7 @@ properties:
         id: Git.GCM
         source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: azure-cli
-      directives:
-        description: Microsoft Azure CLI
-        allowPrerelease: true
-      settings:
-        id: Microsoft.AzureCLI
-        source: winget
-
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: vscode
-      directives:
-        description: Visual Studio Code
-        allowPrerelease: true
-      settings:
-        id: Microsoft.VisualStudioCode
-        source: winget
+    # RUNTIMES
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: fnm
@@ -122,13 +106,24 @@ properties:
         id: GoLang.Go
         source: winget
 
+    # DEV TOOLS
+
     - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: golangci-lint
+      id: azure-cli
       directives:
-        description: GolangCI Lint
+        description: Microsoft Azure CLI
         allowPrerelease: true
       settings:
-        id: GolangCI.golangci-lint
+        id: Microsoft.AzureCLI
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: vscode
+      directives:
+        description: Visual Studio Code
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudioCode
         source: winget
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
@@ -139,6 +134,64 @@ properties:
       settings:
         id: Docker.DockerDesktop
         source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: dapr
+      directives:
+        description: Dapr
+        allowPrerelease: true
+      settings:
+        id: Dapr.CLI
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: terraform
+      directives:
+        description: Terraform
+        allowPrerelease: true
+      settings:
+        id: Hashicorp.Terraform
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: bicep
+      directives:
+        description: Bicep
+        allowPrerelease: true
+      settings:
+        id: Microsoft.Bicep
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: jq
+      directives:
+        description: JQ
+        allowPrerelease: true
+      settings:
+        id: jqlang.jq
+        source: winget
+
+    # GO DEV
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: golangci-lint
+      directives:
+        description: GolangCI Lint
+        allowPrerelease: true
+      settings:
+        id: GolangCI.golangci-lint
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: goreleaser
+      directives:
+        description: GoReleaser
+        allowPrerelease: true
+      settings:
+        id: goreleaser.goreleaser
+        source: winget
+
+    # KUBERNETES
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: kubectl
@@ -185,50 +238,7 @@ properties:
         id: Mirantis.Lens
         source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: dapr
-      directives:
-        description: Dapr
-        allowPrerelease: true
-      settings:
-        id: Dapr.CLI
-        source: winget
-
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: terraform
-      directives:
-        description: Terraform
-        allowPrerelease: true
-      settings:
-        id: Hashicorp.Terraform
-        source: winget
-
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: bicep
-      directives:
-        description: Bicep
-        allowPrerelease: true
-      settings:
-        id: Microsoft.Bicep
-        source: winget
-
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: jq
-      directives:
-        description: JQ
-        allowPrerelease: true
-      settings:
-        id: jqlang.jq
-        source: winget
-
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: goreleaser
-      directives:
-        description: GoReleaser
-        allowPrerelease: true
-      settings:
-        id: goreleaser.goreleaser
-        source: winget
+    # DX
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: chezmoi
